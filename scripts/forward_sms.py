@@ -52,8 +52,6 @@ def main() -> None:
             )
             logging.info("message has been forwarded and deleted")
 
-            raise
-
 
 if __name__ == "__main__":
     main()
