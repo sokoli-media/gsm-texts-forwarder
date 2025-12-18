@@ -1,1 +1,1 @@
-# gsm-texts-forwarder
+# gsm-texts-forwarder aka Huawei E173 SMS forwarder
