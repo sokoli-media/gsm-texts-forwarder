@@ -17,16 +17,6 @@ if not TARGET_NUMBER:
     sys.exit(1)
 
 
-def get_sender(message: dict) -> str:
-    sender = message["Number"]
-    sender_number = message["SMSC"]["Number"]
-
-    if sender != sender_number:
-        return f"{sender} ({sender_number})"
-
-    return sender
-
-
 def main() -> None:
     logging.info("configuring gammu...")
 
@@ -46,7 +36,7 @@ def main() -> None:
             return None
 
         for message in messages:
-            sender = get_sender(message)
+            sender = message["Number"]
             text = message["Text"]
 
             logging.info("received a text from %s: %s", sender, text)
