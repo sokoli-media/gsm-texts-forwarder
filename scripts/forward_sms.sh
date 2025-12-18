@@ -1,5 +1,7 @@
 #!/bin/bash
 
+echo "starting forwarder..."
+
 if [ -z "$GAMMU_DEVICE" ]; then
   echo "GAMMU_DEVICE is not set"
   exit 1
@@ -20,6 +22,8 @@ device = $GAMMU_DEVICE
 connection = at
 EOF
 
+echo "config has been updated"
+
 count=$(gammu --getfolders | grep -i 'Inbox' | awk '{print $4}')
 
 if [ "$count" -ge 1 ]; then
@@ -34,3 +38,5 @@ if [ "$count" -ge 1 ]; then
     gammu deletesms INBOX $i
   done
 fi
+
+echo "forwarder has finished"
