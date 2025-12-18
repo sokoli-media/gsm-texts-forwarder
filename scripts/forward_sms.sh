@@ -1,21 +1,5 @@
 #!/bin/bash
 
-echo "starting forwarder..."
-
-if [ -z "$GAMMU_DEVICE" ]; then
-  echo "GAMMU_DEVICE is not set"
-  exit 1
-else
-  echo "GAMMU_DEVICE is set to $GAMMU_DEVICE"
-fi
-
-if [ -z "$TARGET_NUMBER" ]; then
-  echo "TARGET_NUMBER is not set"
-  exit 1
-else
-  echo "TARGET_NUMBER is set to $TARGET_NUMBER"
-fi
-
 cat > /root/.gammurc <<EOF
 [gammu]
 device = $GAMMU_DEVICE
@@ -26,6 +10,8 @@ echo "config has been updated"
 
 count=$(gammu --getfolders | grep -i 'Inbox' | awk '{print $4}')
 
+echo "looking for new texts..."
+
 if [ "$count" -ge 1 ]; then
   for i in $(seq 1 $count); do
     msg=$(gammu getsms INBOX $i $i | awk '/Text:/ {print substr($0,7)}')
@@ -33,7 +19,7 @@ if [ "$count" -ge 1 ]; then
 
     gammu sendsms TEXT "$TARGET_NUMBER" -text "From $sender: $msg"
 
-    echo "Forwarded $msg from $sender to $TARGET_NUMBER"
+    echo "forwarded $msg from $sender to $TARGET_NUMBER"
 
     gammu deletesms INBOX $i
   done
