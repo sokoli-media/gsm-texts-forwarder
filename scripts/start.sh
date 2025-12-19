@@ -10,6 +10,7 @@ cat > /root/.gammurc <<EOF
 [gammu]
 device = $GAMMU_DEVICE
 connection = at
+sendtimeout = 120
 EOF
 
 echo "switching Huawei modem to modem mode..."
