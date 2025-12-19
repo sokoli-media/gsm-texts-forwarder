@@ -24,5 +24,5 @@ while true; do
   python3 /usr/local/bin/forward_sms.py
 
   echo "waiting..."
-  sleep 600
+  sleep 30
 done
